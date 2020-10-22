@@ -1,0 +1,9 @@
+0
+B-Literal
+E-Literal
+M-Literal
+S-Literal
+B-Associative
+E-Associative
+M-Associative
+S-Associative
