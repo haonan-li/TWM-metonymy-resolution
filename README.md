@@ -1,5 +1,7 @@
 # Target Word Masking for Location Metonymy Resolution
 
+Code for the paper [Target Word Masking for Location Metonymy Resolution](metonymy_resolution_long.pdf) published in COLING 2020.
+
 ## Abstract
  Existing metonymy resolution approaches rely on features extracted
   from external resources like dictionaries and hand-crafted lexical
@@ -23,8 +25,10 @@ The code is based on [`transformers`](https://github.com/huggingface/transformer
 
 ### Metonymy Resolution
 
-We use the code in [this](https://github.com/nlpAThits/WiMCor) repo to get the `Prewin` baselines.
+#### Prewin baselines 
+We use the code in [this](https://github.com/nlpAThits/WiMCor) repo to generate the `Prewin` baselines, which is based on [Minimalist Location Metonymy Resolution](https://github.com/milangritta/Minimalist-Location-Metonymy-Resolution)
 
+#### Our model
 To run our metonymy resolution model, you just need to specify the parameters for `src/run_metonymy_resolution.py`.
 
 For example: 
@@ -43,7 +47,7 @@ python run_metonymy_resolution.py \
 
 All data mentioned in paper is in [`data`](https://github.com/haonan-li/TWM-metonymy-resolution/tree/main/data) directory. For metonymy resolution, datasets are transfered to the same format. 
 
-Note that we use a subset of [`WiMCor`](https://github.com/nlpAThits/WiMCor) and re-split it. 
+Note that we use a subset of [`WiMCor`](https://kevinalexmathews.github.io/software/) and re-split it. 
 
 ### Extrinsic Evaluation
 
@@ -58,4 +62,3 @@ Run `run_bert_tagger.py` on the data in `data/geoparsing/gold` directly.
 
 #### Our model
 Run `run_bert_tagger.py` on the data in `data/geoparsing/gold_entity` to first detect the toponyms. Then convert predictions to json file. Finally, use `run_metonymy_resolution.py` to classify the readings.
-
