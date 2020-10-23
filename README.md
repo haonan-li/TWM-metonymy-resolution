@@ -23,6 +23,12 @@ Code for the paper [Target Word Masking for Location Metonymy Resolution](metony
 
 The code is based on [`transformers`](https://github.com/huggingface/transformers).
 
+### Data
+
+All data mentioned in paper is in [`data`](https://github.com/haonan-li/TWM-metonymy-resolution/tree/main/data) directory. For metonymy resolution, datasets are transfered to the same format. 
+
+Note that we use a subset of [`WiMCor`](https://kevinalexmathews.github.io/software/) and re-split it. 
+
 ### Metonymy Resolution
 
 #### Prewin baselines 
@@ -43,11 +49,6 @@ python run_metonymy_resolution.py \
 --do_mask
 ```
 
-### Data
-
-All data mentioned in paper is in [`data`](https://github.com/haonan-li/TWM-metonymy-resolution/tree/main/data) directory. For metonymy resolution, datasets are transfered to the same format. 
-
-Note that we use a subset of [`WiMCor`](https://kevinalexmathews.github.io/software/) and re-split it. 
 
 ### Extrinsic Evaluation
 
