@@ -25,7 +25,7 @@ The code is based on [`transformers`](https://github.com/huggingface/transformer
 
 ### Data
 
-All data mentioned in paper is in [`data`](https://github.com/haonan-li/TWM-metonymy-resolution/tree/main/data) directory. For metonymy resolution, datasets are transfered to the same format. 
+All data mentioned in the paper is in [`data`](https://github.com/haonan-li/TWM-metonymy-resolution/tree/main/data) directory. For metonymy resolution, datasets are transferred to the same format. 
 
 Note that we use a subset of [`WiMCor`](https://kevinalexmathews.github.io/software/) and re-split it. 
 
@@ -35,7 +35,7 @@ Note that we use a subset of [`WiMCor`](https://kevinalexmathews.github.io/softw
 We use the code in [this](https://github.com/nlpAThits/WiMCor) repo to generate the `Prewin` baselines, which is based on [Minimalist Location Metonymy Resolution](https://github.com/milangritta/Minimalist-Location-Metonymy-Resolution)
 
 #### Our model
-To run our metonymy resolution model, you just need to specify the parameters for `src/run_metonymy_resolution.py`.
+To run our metonymy resolution model, you just need to specify the arguments for `src/run_metonymy_resolution.py`.
 
 For example: 
 ```bash
@@ -48,6 +48,8 @@ python run_metonymy_resolution.py \
 --do_eval \
 --do_mask
 ```
+
+For single input test, you can see [single_example.ipynb](single_example.ipynb).
 
 
 ### Extrinsic Evaluation

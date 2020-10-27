@@ -207,7 +207,7 @@ def convert_examples_to_features(examples, tokenizer,
         assert len(attention_mask) == max_length, "Error with input length {} vs {}".format(len(attention_mask), max_length)
         assert len(token_type_ids) == max_length, "Error with input length {} vs {}".format(len(token_type_ids), max_length)
 
-        label = label_map[example.label]
+        label = label_map[example.label] if example.label else None
 
         if ex_index < 2:
             logger.info("*** Example ***")
@@ -215,7 +215,8 @@ def convert_examples_to_features(examples, tokenizer,
             logger.info("input_ids: %s" % " ".join([str(x) for x in input_ids]))
             logger.info("attention_mask: %s" % " ".join([str(x) for x in attention_mask]))
             logger.info("token_type_ids: %s" % " ".join([str(x) for x in token_type_ids]))
-            logger.info("label: %s (id = %d)" % (example.label, label))
+            if label:
+                logger.info("label: %s (id = %d)" % (example.label, label))
 
         features.append(
                 InputFeatures(input_ids=input_ids,
@@ -227,6 +228,41 @@ def convert_examples_to_features(examples, tokenizer,
 
 
     return features
+
+def convert_single_example_to_input(example, tokenizer, do_mask=True):
+    # input example
+    processor = WordClassificationProcessor()
+    label_list = processor.get_labels()
+
+    pos = example['pos']
+    if do_mask:
+       example['sentence'][pos[0]:pos[1]] = ['x']
+       pos[1] = pos[0] + 1
+    text_a = " ".join(example['sentence'])
+    examples = [InputExample(guid=0, tokens=example['sentence'], text_a=text_a, text_b=None, pos=pos, label=None)]
+
+    # convert example to feature
+    features = convert_examples_to_features(examples,
+                                            tokenizer,
+                                            label_list=label_list,
+                                            max_length=256,
+                                            pad_token=tokenizer.convert_tokens_to_ids([tokenizer.pad_token])[0],
+                                            pad_token_segment_id=0,
+    )
+
+    # convert to tensor
+    all_input_ids = torch.tensor([f.input_ids for f in features], dtype=torch.long)
+    all_attention_mask = torch.tensor([f.attention_mask for f in features], dtype=torch.long)
+    all_token_type_ids = torch.tensor([f.token_type_ids for f in features], dtype=torch.long)
+    all_start_positions = torch.tensor([f.start_position for f in features], dtype=torch.long)
+    all_end_positions = torch.tensor([f.end_position for f in features], dtype=torch.long)
+
+    return {'input_ids': all_input_ids,
+            'attention_mask': all_attention_mask,
+            'token_type_ids': all_token_type_ids,
+            'start_position': all_start_positions,
+            'end_position': all_end_positions
+            }
 
 
 def data_augmentation(file_path):
