@@ -65,7 +65,6 @@ class InputExample(object):
         self.label = label
 
 class InputFeatures(object):
-
     def __init__(self, input_ids, attention_mask, token_type_ids, start_position, end_position, label):
         self.input_ids = input_ids
         self.attention_mask = attention_mask
@@ -207,7 +206,7 @@ def convert_examples_to_features(examples, tokenizer,
         assert len(attention_mask) == max_length, "Error with input length {} vs {}".format(len(attention_mask), max_length)
         assert len(token_type_ids) == max_length, "Error with input length {} vs {}".format(len(token_type_ids), max_length)
 
-        label = label_map[example.label] if example.label else None
+        label = label_map[example.label] if example.label is not None else None
 
         if ex_index < 2:
             logger.info("*** Example ***")
